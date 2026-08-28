@@ -25,7 +25,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      # No dependencies — the watcher runs on the standard library alone.
+            - run: pip install curl_cffi
 
       - name: Check stock
         env:
