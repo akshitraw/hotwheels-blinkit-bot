@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hot Wheels Watcher"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:paddingBottom="4dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Watches Blinkit at your delivery location and notifies you the moment a car comes back in stock."
+            android:textSize="14sp"
+            android:alpha="0.7"
+            android:paddingBottom="20dp" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:background="?android:attr/colorBackgroundFloating"
+            android:textSize="14sp"
+            android:text="○ Not watching"
+            android:layout_marginBottom="20dp" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="Latitude" android:textSize="12sp" android:alpha="0.7" />
+        <EditText android:id="@+id/lat"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:inputType="numberDecimal" android:autofillHints="" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="Longitude" android:textSize="12sp" android:alpha="0.7"
+            android:paddingTop="12dp" />
+        <EditText android:id="@+id/lon"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:inputType="numberDecimal" android:autofillHints="" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="Search term" android:textSize="12sp" android:alpha="0.7"
+            android:paddingTop="12dp" />
+        <EditText android:id="@+id/query"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:inputType="text" android:autofillHints="" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="Only alert for these words (comma separated, blank = everything)"
+            android:textSize="12sp" android:alpha="0.7" android:paddingTop="12dp" />
+        <EditText android:id="@+id/keywords"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:inputType="text" android:hint="bugatti, skyline, supra"
+            android:autofillHints="" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="Check every (minutes)" android:textSize="12sp" android:alpha="0.7"
+            android:paddingTop="12dp" />
+        <EditText android:id="@+id/interval"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:inputType="number" android:autofillHints="" />
+
+        <Button android:id="@+id/start"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="Start watching" android:layout_marginTop="24dp" />
+
+        <Button android:id="@+id/stop"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="Stop" android:layout_marginTop="8dp" />
+
+        <Button android:id="@+id/test"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="Send a test alert" android:layout_marginTop="8dp" />
+
+        <Button android:id="@+id/reset"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="Reset baseline" android:layout_marginTop="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="The first check after starting (or resetting) is silent — it records what's already in stock so you only hear about real changes."
+            android:textSize="12sp"
+            android:alpha="0.6"
+            android:paddingTop="16dp"
+            android:paddingBottom="24dp" />
+    </LinearLayout>
+</ScrollView>
