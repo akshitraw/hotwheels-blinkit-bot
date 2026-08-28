@@ -37,58 +37,70 @@ object Blinkit {
 
     private const val BASE = "https://blinkit.com"
     private const val SEARCH = "/v1/layout/search"
+    private const val BODY =
+        """{"applied_filters":null,"previous_search_query":"","processed_rails":{}}"""
 
-    // The desktop Chrome UA is what Blinkit's web API expects. Header names are
-    // capitalised deliberately: Cloudflare scores lowercase, library-style
-    // headers worse, and this exact shape is the one verified to get through.
-    private const val UA =
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 " +
-            "(KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+    /** Which entry of [Profiles.all] to send. Set from saved settings at startup. */
+    @Volatile var profileIndex: Int = 0
 
-    private const val BODY = """{"applied_filters":null,"previous_search_query":"","processed_rails":{}}"""
+    /** Called when a fallback finds a different profile that works, so it can be saved. */
+    @Volatile var onProfileChanged: ((Int) -> Unit)? = null
 
-    private fun post(path: String, lat: String, lon: String): JSONObject {
-        val url = URL(if (path.startsWith("/")) BASE + path else path)
-        val c = (url.openConnection() as HttpURLConnection).apply {
+    private class Response(val code: Int, val body: String)
+
+    private fun attempt(url: String, lat: String, lon: String, profile: Int): Response {
+        val c = (URL(url).openConnection() as HttpURLConnection).apply {
             requestMethod = "POST"
             connectTimeout = 20_000
             readTimeout = 20_000
             doOutput = true
-            instanceFollowRedirects = true
-            setRequestProperty("Accept", "*/*")
-            setRequestProperty("Accept-Language", "en-US,en;q=0.9")
-            // Ask for no compression: it matches the request shape that works,
-            // and saves us decoding gzip by hand.
-            setRequestProperty("Accept-Encoding", "identity")
-            setRequestProperty("Content-Type", "application/json")
-            setRequestProperty("Origin", BASE)
-            setRequestProperty("Referer", "$BASE/")
-            setRequestProperty("User-Agent", UA)
-            setRequestProperty("sec-ch-ua", "\"Chromium\";v=\"127\", \"Not)A;Brand\";v=\"99\"")
-            setRequestProperty("sec-ch-ua-mobile", "?0")
-            setRequestProperty("sec-ch-ua-platform", "\"Windows\"")
-            setRequestProperty("sec-fetch-dest", "empty")
-            setRequestProperty("sec-fetch-mode", "cors")
-            setRequestProperty("sec-fetch-site", "same-origin")
-            setRequestProperty("app_client", "consumer_web")
-            setRequestProperty("lat", lat)
-            setRequestProperty("lon", lon)
         }
-        try {
+        return try {
+            val headers = Profiles.all[profile.coerceIn(Profiles.all.indices)].build(lat, lon)
+            for ((k, v) in headers) c.setRequestProperty(k, v)
             c.outputStream.use { it.write(BODY.toByteArray()) }
             val code = c.responseCode
-            val text = (if (code in 200..299) c.inputStream else c.errorStream)
+            // Left to HttpURLConnection: it advertises gzip and decodes it for us.
+            val body = (if (code in 200..299) c.inputStream else c.errorStream)
                 ?.bufferedReader()?.use(BufferedReader::readText).orEmpty()
-            if (code == 400 && text.contains("not serviceable", true)) {
-                throw BlinkitError("This location is not serviceable. Check the coordinates.")
-            }
-            if (code != 200) {
-                throw BlinkitError("HTTP $code from Blinkit${if (code == 403) " (blocked — is this on mobile data or wifi?)" else ""}")
-            }
-            return JSONObject(text)
+            Response(code, body)
         } finally {
             c.disconnect()
         }
+    }
+
+    private fun post(path: String, lat: String, lon: String): JSONObject {
+        val url = if (path.startsWith("/")) BASE + path else path
+
+        var response = attempt(url, lat, lon, profileIndex)
+
+        // Cloudflare rules shift over time. Rather than fail outright, walk the
+        // other known request shapes and adopt whichever one is accepted.
+        if (response.code == 403) {
+            for (i in Profiles.all.indices) {
+                if (i == profileIndex) continue
+                val retry = runCatching { attempt(url, lat, lon, i) }.getOrNull() ?: continue
+                if (retry.code == 200) {
+                    profileIndex = i
+                    onProfileChanged?.invoke(i)
+                    response = retry
+                    break
+                }
+                Thread.sleep(400)
+            }
+        }
+
+        if (response.code == 400 && response.body.contains("not serviceable", true)) {
+            throw BlinkitError("This location is not serviceable — check the coordinates.")
+        }
+        if (response.code != 200) {
+            throw BlinkitError(
+                if (response.code == 403) "403 — Blinkit refused every request shape from this network"
+                else "HTTP ${response.code} from Blinkit"
+            )
+        }
+        return runCatching { JSONObject(response.body) }
+            .getOrElse { throw BlinkitError("Blinkit sent something that isn't JSON") }
     }
 
     /** Depth-first walk for anything shaped like a product card. */

@@ -33,6 +33,11 @@ class Store(context: Context) {
         get() = prefs.getBoolean("enabled", false)
         set(v) = prefs.edit().putBoolean("enabled", v).apply()
 
+    /** Index into Profiles.all that Blinkit currently accepts. */
+    var httpProfile: Int
+        get() = prefs.getInt("httpProfile", 0)
+        set(v) = prefs.edit().putInt("httpProfile", v).apply()
+
     var lastStatus: String
         get() = prefs.getString("status", "Not started yet")!!
         set(v) = prefs.edit().putString("status", v).apply()

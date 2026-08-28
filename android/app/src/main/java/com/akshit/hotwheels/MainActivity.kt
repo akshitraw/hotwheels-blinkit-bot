@@ -26,6 +26,10 @@ class MainActivity : Activity() {
         setContentView(R.layout.activity_main)
         store = Store(this)
         Notifier.ensureChannels(this)
+        // Restore whichever request shape Blinkit last accepted, and persist
+        // any change the automatic fallback discovers.
+        Blinkit.profileIndex = store.httpProfile
+        Blinkit.onProfileChanged = { store.httpProfile = it }
 
         val lat = findViewById<EditText>(R.id.lat)
         val lon = findViewById<EditText>(R.id.lon)
@@ -141,7 +145,7 @@ class MainActivity : Activity() {
             .setCancelable(false)
             .show()
         Thread {
-            val report = runCatching { Diagnostics.run(store.lat, store.lon) }
+            val report = runCatching { Diagnostics.run(store.lat, store.lon, Blinkit.profileIndex) }
                 .getOrElse { "Diagnostics crashed: ${it.message}" }
             ui.post {
                 progress.dismiss()

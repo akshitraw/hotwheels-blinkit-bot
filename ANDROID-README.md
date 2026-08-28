@@ -78,13 +78,30 @@ those brands also add the app to the "protected"/"auto-start" list.
 If the ongoing notification says `HTTP 403`, Blinkit is refusing that network —
 switch between wifi and mobile data and see whether one works.
 
+## The Cloudflare quirk
+
+Blinkit is behind Cloudflare, and the request shape that gets through from
+Android is the **plainest** one: `Content-Type`, `lat`, `lon`, and nothing else.
+No User-Agent, no Origin, no `sec-ch-*`.
+
+This is the opposite of the usual advice. Every profile that impersonated Chrome
+was refused with 403 — verified on-device across six variants. The reason is that
+a declared identity of "Chrome on Windows" contradicts the TLS and HTTP/2
+fingerprint of Android's OkHttp stack, and that contradiction scores worse than
+making no claim at all.
+
+`Profiles.kt` keeps all six shapes. If Blinkit ever stops accepting the current
+one, the watcher walks the others automatically, adopts whichever works, and
+remembers it. **Diagnose connection** in the app shows the current state of all
+six, which is the first thing to check if alerts go quiet.
+
 ## How it works
 
 `Blinkit.kt` posts to `blinkit.com/v1/layout/search` with `lat`/`lon` headers —
 the same endpoint the website uses, no login required — then walks the response
-tree for anything carrying `product_id`, `inventory` and `display_name`. Header
-names are deliberately capitalised and compression is off; that exact request
-shape is what gets past Cloudflare.
+tree for anything carrying `product_id`, `inventory` and `display_name`. The
+request carries only the three headers above, for the reason described in the
+previous section.
 
 `WatcherService.kt` is a foreground service rather than a WorkManager job because
 WorkManager's minimum period is 15 minutes, slower than a hot car sells out. It

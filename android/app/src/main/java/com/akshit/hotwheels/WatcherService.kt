@@ -93,6 +93,8 @@ class WatcherService : Service() {
 
     private fun loop() {
         val store = Store(this)
+        Blinkit.profileIndex = store.httpProfile
+        Blinkit.onProfileChanged = { store.httpProfile = it }
         var failures = 0
 
         while (running) {
