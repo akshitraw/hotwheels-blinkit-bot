@@ -54,6 +54,43 @@ def ok(label, cond):
         FAILED += 1
 
 
+def test_env_handling():
+    """Regression: GitHub Actions passes unset vars as "" not as missing."""
+    import importlib
+    global FAILED
+    print("config from environment")
+    saved = {k: os.environ.get(k) for k in
+             ("QUERIES", "KEYWORDS", "INTERVAL", "MAX_PAGES", "SYNC_GIT")}
+    try:
+        # the exact situation that broke CI
+        os.environ["QUERIES"] = ""
+        os.environ["KEYWORDS"] = ""
+        os.environ["INTERVAL"] = ""
+        cfg = bw.Config()
+        ok("empty QUERIES falls back to default", cfg.queries == ["hot wheels"])
+        ok("empty QUERIES never yields []", len(cfg.queries) > 0)
+        ok("empty KEYWORDS means no filter", cfg.keywords == [])
+        ok("empty INTERVAL falls back to 300", cfg.interval == 300)
+
+        os.environ["QUERIES"] = "hot wheels, matchbox ,"
+        ok("comma list parses, blanks dropped",
+           bw.Config().queries == ["hot wheels", "matchbox"])
+
+        os.environ["INTERVAL"] = "not-a-number"
+        ok("non-numeric INTERVAL falls back", bw.Config().interval == 300)
+
+        os.environ["SYNC_GIT"] = ""
+        ok("empty SYNC_GIT is off", bw.Config().sync_git is False)
+        os.environ["SYNC_GIT"] = "1"
+        ok("SYNC_GIT=1 is on", bw.Config().sync_git is True)
+    finally:
+        for k, v in saved.items():
+            if v is None:
+                os.environ.pop(k, None)
+            else:
+                os.environ[k] = v
+
+
 def main():
     print("parse_products")
     products = bw.parse_products(PAYLOAD)
@@ -137,12 +174,15 @@ def main():
                   keywords=["bugatti"])
     ok("keyword filter suppresses non-matching restock", r7 == [])
 
+    test_env_handling()
+
     print()
     if FAILED:
         print(f"{FAILED} check(s) failed")
         return 1
     print("all checks passed")
     return 0
+
 
 
 if __name__ == "__main__":

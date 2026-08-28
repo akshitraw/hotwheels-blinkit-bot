@@ -419,8 +419,18 @@
       "name": "Matchbox BMW I4 Police Die Cast Car",
       "in_stock": true,
       "price": "₹179"
+    },
+    "720262": {
+      "name": "Hot Wheels 1:64 Die Cast Car (Design & Colour May Vary)",
+      "in_stock": true,
+      "price": "₹270"
+    },
+    "799774": {
+      "name": "Matchbox 2023 Subaru Outback Wilderness Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
     }
   },
-  "last_check": "2026-08-28 16:23:01",
-  "last_count": 0
+  "last_check": "2026-08-28 21:59:07",
+  "last_count": 79
 }

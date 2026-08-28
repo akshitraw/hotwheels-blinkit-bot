@@ -131,22 +131,45 @@ def load_dotenv() -> None:
         os.environ.setdefault(key.strip(), val.strip().strip("'\""))
 
 
+def env(name: str, default: str = "") -> str:
+    """Read a config value, treating blank as unset.
+
+    This matters more than it looks. GitHub Actions expands an undefined
+    `vars.X` to an EMPTY STRING rather than omitting the variable, so
+    os.environ.get(name, default) hands back "" and silently discards the
+    default. That is how QUERIES ended up empty and the watcher searched for
+    nothing at all while still reporting success.
+    """
+    value = os.environ.get(name, "").strip()
+    return value or default
+
+
+def env_int(name: str, default: int) -> int:
+    try:
+        return int(env(name, str(default)))
+    except ValueError:
+        print(f"  ({name} is not a number — using {default})", file=sys.stderr)
+        return default
+
+
 class Config:
     def __init__(self) -> None:
-        self.lat = os.environ.get("BLINKIT_LAT", "").strip()
-        self.lon = os.environ.get("BLINKIT_LON", "").strip()
-        self.token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
-        self.chat_id = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
-        self.queries = [q.strip() for q in
-                        os.environ.get("QUERIES", "hot wheels").split(",") if q.strip()]
-        self.keywords = [k.strip().lower() for k in
-                         os.environ.get("KEYWORDS", "").split(",") if k.strip()]
-        self.interval = int(os.environ.get("INTERVAL", "300"))
-        self.max_pages = int(os.environ.get("MAX_PAGES", "8"))
-        self.state_file = Path(os.environ.get("STATE_FILE", str(HERE / "state.json")))
+        self.lat = env("BLINKIT_LAT")
+        self.lon = env("BLINKIT_LON")
+        self.token = env("TELEGRAM_BOT_TOKEN")
+        self.chat_id = env("TELEGRAM_CHAT_ID")
+        self.queries = [q.strip() for q in env("QUERIES", "hot wheels").split(",") if q.strip()]
+        self.keywords = [k.strip().lower() for k in env("KEYWORDS").split(",") if k.strip()]
+        self.interval = env_int("INTERVAL", 300)
+        self.max_pages = env_int("MAX_PAGES", 8)
+        self.state_file = Path(env("STATE_FILE", str(HERE / "state.json")))
         # Share state through the git repo so a local watcher and GitHub Actions
         # don't both alert on the same restock.
-        self.sync_git = os.environ.get("SYNC_GIT", "0").strip() == "1"
+        self.sync_git = env("SYNC_GIT", "0") == "1"
+        # Belt and braces: an empty query list means searching for nothing,
+        # which is indistinguishable from "everything is sold out".
+        if not self.queries:
+            self.queries = ["hot wheels"]
 
     def headers(self) -> dict[str, str]:
         return {
