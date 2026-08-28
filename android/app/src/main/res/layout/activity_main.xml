@@ -87,6 +87,10 @@
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:text="Reset baseline" android:layout_marginTop="8dp" />
 
+        <Button android:id="@+id/diagnose"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="Diagnose connection" android:layout_marginTop="8dp" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

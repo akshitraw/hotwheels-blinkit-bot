@@ -73,6 +73,11 @@ class MainActivity : Activity() {
             testAlert()
         }
 
+        findViewById<Button>(R.id.diagnose).setOnClickListener {
+            save()
+            runDiagnostics()
+        }
+
         findViewById<Button>(R.id.reset).setOnClickListener {
             store.forgetAll()
             toast("Baseline cleared — next check re-learns what's in stock")
@@ -122,6 +127,45 @@ class MainActivity : Activity() {
                 )
             )
         }
+    }
+
+    /**
+     * Try several request shapes against Blinkit and show which get through.
+     * Cloudflare accepts or refuses based on the exact header set, so this
+     * finds the shape that works from THIS phone on THIS network.
+     */
+    private fun runDiagnostics() {
+        val progress = android.app.AlertDialog.Builder(this)
+            .setTitle("Testing connection")
+            .setMessage("Trying 6 request profiles against Blinkit…")
+            .setCancelable(false)
+            .show()
+        Thread {
+            val report = runCatching { Diagnostics.run(store.lat, store.lon) }
+                .getOrElse { "Diagnostics crashed: ${it.message}" }
+            ui.post {
+                progress.dismiss()
+                val view = TextView(this).apply {
+                    text = report
+                    setTextIsSelectable(true)
+                    setPadding(48, 32, 48, 32)
+                    textSize = 13f
+                    typeface = android.graphics.Typeface.MONOSPACE
+                }
+                android.app.AlertDialog.Builder(this)
+                    .setTitle("Connection report")
+                    .setView(android.widget.ScrollView(this).apply { addView(view) })
+                    .setPositiveButton("Copy") { _, _ ->
+                        val cm = getSystemService(android.content.ClipboardManager::class.java)
+                        cm.setPrimaryClip(
+                            android.content.ClipData.newPlainText("blinkit diagnostics", report)
+                        )
+                        toast("Copied — paste it to Claude")
+                    }
+                    .setNegativeButton("Close", null)
+                    .show()
+            }
+        }.start()
     }
 
     /** Fetch live results and notify on the first couple, so you can see it work. */
