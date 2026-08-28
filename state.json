@@ -1,0 +1,426 @@
+{
+  "products": {
+    "787576": {
+      "name": "Hot Wheels Haulerback Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "771901": {
+      "name": "Hot Wheels Classic TV Series Batmobile Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "787574": {
+      "name": "Hot Wheels 5 Alarm Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "787572": {
+      "name": "Hot Wheels Pass N Go Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "774440": {
+      "name": "Hot Wheels Tooned Volkswagen Golf Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "787546": {
+      "name": "Hot Wheels Mountain Mauler Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "774452": {
+      "name": "Hot Wheels Roller Toaster Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "787528": {
+      "name": "Hot Wheels Mad Drip Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "720748": {
+      "name": "Hot Wheels Moto Fat Ride Toy Bike",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "774429": {
+      "name": "Hot Wheels Head Gasket Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "797375": {
+      "name": "Hot Wheels Car & Monster Truck",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "797617": {
+      "name": "Hot Wheels Car & Monster Truck (Green)",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "797376": {
+      "name": "Hot Wheels Race Ace Car & Monster Truck",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "797370": {
+      "name": "Hot Wheels Twin Mill Car & Monster Truck",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "774445": {
+      "name": "Hot Wheels Dessert Drifter Die Cast Car",
+      "in_stock": true,
+      "price": "₹167"
+    },
+    "796559": {
+      "name": "Hot Wheels Light-Blue Yoshi Die Cast Car with Super Glide",
+      "in_stock": true,
+      "price": "₹799"
+    },
+    "796428": {
+      "name": "Hot Wheels Mario Kart Wario B-Dasher with Wing Die Cast Car",
+      "in_stock": true,
+      "price": "₹799"
+    },
+    "541353": {
+      "name": "Wembley High-Speed Unbreakable Die cast Metal Toy Vehicle (Set of 3)",
+      "in_stock": true,
+      "price": "₹209"
+    },
+    "541351": {
+      "name": "Wembley High-Speed Unbreakable Die cast Metal Toy Vehicle",
+      "in_stock": true,
+      "price": "₹349"
+    },
+    "655208": {
+      "name": "Marvel Go: Spider Man 2/10 Die Cast Car",
+      "in_stock": true,
+      "price": "₹148"
+    },
+    "786597": {
+      "name": "Road Burner 1:36 Scale Road Runner Die Cast Car",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "654854": {
+      "name": "Marvel Go: Iron-Man Die Cast Car",
+      "in_stock": true,
+      "price": "₹148"
+    },
+    "751294": {
+      "name": "Frendo Premium Metal 1:64 Die Cast Car",
+      "in_stock": true,
+      "price": "₹99"
+    },
+    "751298": {
+      "name": "Frendo Premium 1:64 Metal Die Cast Car Set",
+      "in_stock": true,
+      "price": "₹339"
+    },
+    "653182": {
+      "name": "Goyal's Metal Die Cast Toy Car Set",
+      "in_stock": true,
+      "price": "₹499"
+    },
+    "654819": {
+      "name": "Marvel Go: Hulk Die Cast Car",
+      "in_stock": true,
+      "price": "₹148"
+    },
+    "654831": {
+      "name": "Marvel Go: Loki Die Cast Car",
+      "in_stock": true,
+      "price": "₹98"
+    },
+    "786601": {
+      "name": "Road Burner Custom Cougar Die Cast Car",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "784648": {
+      "name": "Vidhyadevam Die Cast Car Set",
+      "in_stock": true,
+      "price": "₹295"
+    },
+    "655157": {
+      "name": "Marvel Go: Miles Morales Die Cast Car",
+      "in_stock": true,
+      "price": "₹148"
+    },
+    "654862": {
+      "name": "Marvel Go: Black Panther Die Cast Car",
+      "in_stock": true,
+      "price": "₹148"
+    },
+    "712407": {
+      "name": "Frendo Premium Metal Die Cast Car",
+      "in_stock": true,
+      "price": "₹299"
+    },
+    "712528": {
+      "name": "Frendo Die Cast Car",
+      "in_stock": true,
+      "price": "₹299"
+    },
+    "654958": {
+      "name": "Marvel Go: Captain Marvel Die Cast Car",
+      "in_stock": true,
+      "price": "₹148"
+    },
+    "655161": {
+      "name": "Marvel Go: Wolverine Die Cast Car",
+      "in_stock": true,
+      "price": "₹148"
+    },
+    "786596": {
+      "name": "Road Burner 1:36 Scale Street Fighter Die Cast Car",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "786592": {
+      "name": "Road Burner Ritz Die Cast Car",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "786603": {
+      "name": "Road Burner Super Sports Die Cast Car",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "716043": {
+      "name": "Frendo Premium Metal Die Cast Car",
+      "in_stock": true,
+      "price": "₹299"
+    },
+    "751295": {
+      "name": "Frendo Premium 1:64 Metal Die Cast Car",
+      "in_stock": true,
+      "price": "₹99"
+    },
+    "654874": {
+      "name": "Marvel Go: Ant-Man Die Cast Car",
+      "in_stock": true,
+      "price": "₹98"
+    },
+    "654899": {
+      "name": "Marvel Go: Doctor Strange Die Cast Car",
+      "in_stock": true,
+      "price": "₹98"
+    },
+    "751290": {
+      "name": "Toyshine 1:32 Scale SUV Racing Model Die Cast Car",
+      "in_stock": true,
+      "price": "₹399"
+    },
+    "786594": {
+      "name": "Road Burner Thrill Racer Die Cast Car",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "751291": {
+      "name": "Frendo 1:64 Metal Die Cast Car - NZ",
+      "in_stock": true,
+      "price": "₹99"
+    },
+    "751034": {
+      "name": "Frendo 1:64 Premium Metal Die Cast Car",
+      "in_stock": true,
+      "price": "₹99"
+    },
+    "655187": {
+      "name": "Marvel Go: Iron Man Die Cast Car",
+      "in_stock": true,
+      "price": "₹148"
+    },
+    "655508": {
+      "name": "Marvel Go: Thor Die Cast Car",
+      "in_stock": true,
+      "price": "₹148"
+    },
+    "748758": {
+      "name": "Frendo 1:37 G Wag Die Cast Car",
+      "in_stock": true,
+      "price": "₹299"
+    },
+    "751299": {
+      "name": "Frendo Premium 1:64 Metal Die Cast Car",
+      "in_stock": true,
+      "price": "₹369"
+    },
+    "751293": {
+      "name": "Frendo Premium Metal 1:64 Die Cast Car",
+      "in_stock": true,
+      "price": "₹99"
+    },
+    "655151": {
+      "name": "Marvel Go: Black Panther Die Cast Car (BS E2)",
+      "in_stock": true,
+      "price": "₹148"
+    },
+    "748760": {
+      "name": "Frendo 1:37 Die Cast Car",
+      "in_stock": true,
+      "price": "₹299"
+    },
+    "712526": {
+      "name": "Frendo Die Cast Car",
+      "in_stock": true,
+      "price": "₹299"
+    },
+    "711961": {
+      "name": "Frendo Vintage Die Cast Car",
+      "in_stock": true,
+      "price": "₹299"
+    },
+    "654805": {
+      "name": "Marvel Go: Thor Die Cast Car",
+      "in_stock": true,
+      "price": "₹148"
+    },
+    "800778": {
+      "name": "Matchbox Volvo XC40 Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "786593": {
+      "name": "Road Burner 1:36 Scale Evolution Die Cast Car",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "786598": {
+      "name": "Road Burner 1:36 Scale Roadster Die Cast Car",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "786599": {
+      "name": "Road Burner 1:36 Scale Show Stopper Die Cast Car",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "786602": {
+      "name": "Road Burner 1:36 Scale Speedster Die Cast Car",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "786595": {
+      "name": "Road Burner 1:36 Scale Street Fighter Die Cast Car",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "786600": {
+      "name": "Road Burner 1:36 Scale X-Treme Die Cast Car",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "728888": {
+      "name": "Zunbella 1:32 Die Cast Car",
+      "in_stock": true,
+      "price": "₹699"
+    },
+    "1367957": {
+      "name": "Funskool Blazetrix Core Crush, Friction Construction Toy Vehicle (Red & Blue)",
+      "in_stock": true,
+      "price": "₹409"
+    },
+    "1389396": {
+      "name": "Webby Rock Crawler RC Toy with Smoke",
+      "in_stock": true,
+      "price": "₹1,099"
+    },
+    "782999": {
+      "name": "Goyal's Rock Crawler Monster Truck RC Toy",
+      "in_stock": true,
+      "price": "₹849"
+    },
+    "1367953": {
+      "name": "Funskool Blazetrix Buzz Claw, Friction Construction Toy Vehicle",
+      "in_stock": true,
+      "price": "₹409"
+    },
+    "1375854": {
+      "name": "Funskool Blazetrix Iron Hook Toy Vehicle",
+      "in_stock": true,
+      "price": "₹539"
+    },
+    "797090": {
+      "name": "Kriiddaank Avengers Toy Train RC Toy",
+      "in_stock": true,
+      "price": "₹999"
+    },
+    "625336": {
+      "name": "Lego F1 Ferrari SF-24 Racing Car Building Set (77242)",
+      "in_stock": true,
+      "price": "₹2,337"
+    },
+    "526566": {
+      "name": "Toyshine Friction Powered Automobile Car Transportation Toy Vehicle",
+      "in_stock": true,
+      "price": "₹382"
+    },
+    "625313": {
+      "name": "Lego Speed Champions Mercedes-AMG F1 W15 Racing Car Building Set (77244)",
+      "in_stock": true,
+      "price": "₹2,567"
+    },
+    "625307": {
+      "name": "Lego Speed Champions Oracle F1 Red Bull RB20 Racing Car Building Set (77243)",
+      "in_stock": true,
+      "price": "₹2,337"
+    },
+    "586507": {
+      "name": "Kidology Adventure Car Race Track Toy Set",
+      "in_stock": true,
+      "price": "₹949"
+    },
+    "767395": {
+      "name": "NHR Monster Truck RC Toy with Smoke Effect",
+      "in_stock": true,
+      "price": "₹899"
+    },
+    "540313": {
+      "name": "Toyshine Transform Robot Racing Toy Car",
+      "in_stock": true,
+      "price": "₹499"
+    },
+    "557027": {
+      "name": "Lego Speed Champions 2 Fast 2 Furious Nissan Skyline GT-R (R34) Building Set (76917)",
+      "in_stock": true,
+      "price": "₹2,474"
+    },
+    "696983": {
+      "name": "Chigy Wooh RC Toy Helicopter for Kids",
+      "in_stock": true,
+      "price": "₹499"
+    },
+    "677175": {
+      "name": "Frendo Off Roader Long Range Monster Truck RC Toy",
+      "in_stock": true,
+      "price": "₹1,099"
+    },
+    "799631": {
+      "name": "Matchbox MBX 2023 BMW M2 Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "800312": {
+      "name": "Matchbox 2024 Chevrolet Silverado PPV Truck Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "800175": {
+      "name": "Matchbox Mbx Chevy Stock-Car Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "799659": {
+      "name": "Matchbox BMW I4 Police Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    }
+  },
+  "last_check": "2026-08-28 21:29:51",
+  "last_count": 80
+}

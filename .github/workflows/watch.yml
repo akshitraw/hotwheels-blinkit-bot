@@ -1,0 +1,42 @@
+name: Blinkit Hot Wheels watcher
+
+on:
+  schedule:
+    # Every 5 minutes is the documented minimum. In practice GitHub queues
+    # scheduled jobs under load, so expect roughly 5-20 minutes between runs.
+    # That's the backstop for when your PC is off; the local watcher is faster.
+    - cron: "*/5 * * * *"
+  workflow_dispatch:      # lets you run it by hand from the Actions tab
+
+concurrency:
+  group: blinkit-watch
+  cancel-in-progress: false
+
+permissions:
+  contents: write         # needed to commit state.json back
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # No dependencies — the watcher runs on the standard library alone.
+
+      - name: Check stock
+        env:
+          BLINKIT_LAT: ${{ secrets.BLINKIT_LAT }}
+          BLINKIT_LON: ${{ secrets.BLINKIT_LON }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          QUERIES: ${{ vars.QUERIES }}
+          KEYWORDS: ${{ vars.KEYWORDS }}
+          SYNC_GIT: "1"
+        run: |
+          git config user.name  "blinkit-watcher"
+          git config user.email "watcher@users.noreply.github.com"
+          python blinkit_watch.py --once

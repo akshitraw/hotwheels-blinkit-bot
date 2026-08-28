@@ -1,0 +1,3 @@
+# Nothing required — the watcher runs on Python's standard library alone.
+# Optional: only needed if Cloudflare ever starts refusing urllib too.
+# curl_cffi>=0.7
