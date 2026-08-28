@@ -29,8 +29,11 @@ then Install. This is normal for an app that isn't from the Play Store.
 
 ## First run
 
-1. Open the app. Latitude and longitude are pre-filled with Sushant Lok Phase 1
-   (28.4634, 77.0768) — change them if you move.
+1. Open the app and set your location — **Use my location** (grant the location
+   permission when asked) or **Search address** and pick from the results. The
+   app names the place, then immediately checks Blinkit and tells you how many
+   cars that store has, so you know straight away it's the right one. There's an
+   "Enter coordinates manually" toggle if you'd rather type lat/lon.
 2. Tap **Send a test alert**. You should get a notification for a car that's in
    stock right now, with its photo and price. That proves the whole chain works.
 3. Tap **Start watching**. Android will ask for notification permission, then
@@ -53,7 +56,7 @@ unaffected.
 
 | Field | What it does |
 |---|---|
-| Latitude / Longitude | Your delivery point. Blinkit stock is per dark store, so use your actual address rather than a city centre. |
+| Delivery location | Set by GPS or address search. Blinkit stock is per dark store, so use your actual delivery address rather than a city centre — a few kilometres can mean a different warehouse with different stock. Changing it clears the baseline, since the old one described a different store. |
 | Search term | Default `hot wheels`. Try `matchbox` or a specific model. |
 | Only alert for these words | Blank means alert on everything. Set `bugatti, skyline, supra` to narrow it. |
 | Check every (minutes) | Default 2. Below 2 is pointless — dark-store inventory doesn't update that fast — and burns battery. |

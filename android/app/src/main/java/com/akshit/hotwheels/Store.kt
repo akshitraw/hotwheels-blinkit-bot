@@ -38,6 +38,11 @@ class Store(context: Context) {
         get() = prefs.getInt("httpProfile", 0)
         set(v) = prefs.edit().putInt("httpProfile", v).apply()
 
+    /** Human-readable name for the saved coordinates, shown in the UI. */
+    var locationLabel: String
+        get() = prefs.getString("locationLabel", "")!!
+        set(v) = prefs.edit().putString("locationLabel", v).apply()
+
     var lastStatus: String
         get() = prefs.getString("status", "Not started yet")!!
         set(v) = prefs.edit().putString("status", v).apply()

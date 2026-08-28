@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.akshit.hotwheels"
-        minSdk = 29          // Android 10+
+        minSdk = 30          // Android 11+ (LocationManager.getCurrentLocation)
         targetSdk = 36       // Android 16
         versionCode = 1
         versionName = "1.0"
