@@ -40,6 +40,7 @@ class WatcherService : Service() {
     @Volatile private var running = false
     private var worker: Thread? = null
     private var wakeLock: PowerManager.WakeLock? = null
+    private var wifiLock: android.net.wifi.WifiManager.WifiLock? = null
     private val clock = SimpleDateFormat("HH:mm", Locale.getDefault())
 
     override fun onBind(intent: Intent?): IBinder? = null
@@ -56,7 +57,7 @@ class WatcherService : Service() {
 
         if (!running) {
             running = true
-            acquireWakeLock()
+            acquireLocks()
             worker = Thread(::loop, "blinkit-watcher").apply { isDaemon = true; start() }
         }
         // START_STICKY: if Android kills us for memory, restart when it can.
@@ -83,12 +84,28 @@ class WatcherService : Service() {
         }
     }
 
-    private fun acquireWakeLock() {
+    /**
+     * A partial wake lock keeps the CPU running but lets the wifi radio drop
+     * into power save, which is what makes requests time out after the screen
+     * has been off a while. The wifi lock keeps the radio reachable too.
+     */
+    private fun acquireLocks() {
         val pm = getSystemService(PowerManager::class.java)
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "hotwheels:watcher").apply {
             setReferenceCounted(false)
             acquire()
         }
+        runCatching {
+            val wm = applicationContext.getSystemService(android.net.wifi.WifiManager::class.java)
+            wifiLock = wm.createWifiLock(
+                android.net.wifi.WifiManager.WIFI_MODE_FULL_HIGH_PERF, "hotwheels:wifi"
+            ).apply { setReferenceCounted(false); acquire() }
+        }
+    }
+
+    private fun releaseLocks() {
+        runCatching { wakeLock?.release() }; wakeLock = null
+        runCatching { wifiLock?.release() }; wifiLock = null
     }
 
     private fun loop() {
@@ -100,7 +117,7 @@ class WatcherService : Service() {
         while (running) {
             val started = System.currentTimeMillis()
             try {
-                val products = Blinkit.search(store.lat, store.lon, store.query)
+                val products = Blinkit.searchAll(store.lat, store.lon, store.queryList())
                 if (products.isEmpty()) throw BlinkitError("Search returned nothing at all")
 
                 val keywords = store.keywordList()
@@ -153,15 +170,14 @@ class WatcherService : Service() {
         running = false
         worker?.interrupt()
         worker = null
-        runCatching { wakeLock?.release() }
-        wakeLock = null
+        releaseLocks()
         stopForeground(STOP_FOREGROUND_REMOVE)
         stopSelf()
     }
 
     override fun onDestroy() {
         running = false
-        runCatching { wakeLock?.release() }
+        releaseLocks()
         super.onDestroy()
     }
 }

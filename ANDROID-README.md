@@ -57,7 +57,7 @@ unaffected.
 | Field | What it does |
 |---|---|
 | Delivery location | Set by GPS or address search. Blinkit stock is per dark store, so use your actual delivery address rather than a city centre — a few kilometres can mean a different warehouse with different stock. Changing it clears the baseline, since the old one described a different store. |
-| Search term | Default `hot wheels`. Try `matchbox` or a specific model. |
+| Search terms | Comma separated — `hot wheels, matchbox` runs two searches and merges the results. |
 | Only alert for these words | Blank means alert on everything. Set `bugatti, skyline, supra` to narrow it. |
 | Check every (minutes) | Default 2. Below 2 is pointless — dark-store inventory doesn't update that fast — and burns battery. |
 
@@ -80,6 +80,11 @@ those brands also add the app to the "protected"/"auto-start" list.
 
 If the ongoing notification says `HTTP 403`, Blinkit is refusing that network —
 switch between wifi and mobile data and see whether one works.
+
+If it says **no reply after 3 tries**, the phone's radio is likely sleeping
+between checks. The app holds a wifi lock and retries on a fresh connection to
+prevent this, but some phones override it. Widening the interval to 5 minutes,
+or keeping the phone on charge, both help.
 
 ## The Cloudflare quirk
 

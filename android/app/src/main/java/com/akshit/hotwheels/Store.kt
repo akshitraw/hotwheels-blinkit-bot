@@ -47,6 +47,10 @@ class Store(context: Context) {
         get() = prefs.getString("status", "Not started yet")!!
         set(v) = prefs.edit().putString("status", v).apply()
 
+    /** The search box accepts a comma-separated list: "hot wheels, matchbox". */
+    fun queryList(): List<String> =
+        query.split(",").map { it.trim() }.filter { it.isNotEmpty() }.ifEmpty { listOf("hot wheels") }
+
     fun keywordList(): List<String> =
         keywords.split(",").map { it.trim().lowercase() }.filter { it.isNotEmpty() }
 

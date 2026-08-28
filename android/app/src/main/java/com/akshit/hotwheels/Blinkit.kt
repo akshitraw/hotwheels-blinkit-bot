@@ -48,11 +48,11 @@ object Blinkit {
 
     private class Response(val code: Int, val body: String)
 
-    private fun attempt(url: String, lat: String, lon: String, profile: Int): Response {
+    private fun once(url: String, lat: String, lon: String, profile: Int): Response {
         val c = (URL(url).openConnection() as HttpURLConnection).apply {
             requestMethod = "POST"
-            connectTimeout = 20_000
-            readTimeout = 20_000
+            connectTimeout = 30_000
+            readTimeout = 30_000
             doOutput = true
         }
         return try {
@@ -67,6 +67,34 @@ object Blinkit {
         } finally {
             c.disconnect()
         }
+    }
+
+    /**
+     * A timeout on a phone usually is not Blinkit's fault.
+     *
+     * With the screen off the wifi radio drops into power save, and the socket
+     * pooled from the last check is dead by the time we reuse it. The first
+     * request hangs, wakes the radio, and a retry moments later succeeds. So a
+     * timeout gets retried on a fresh connection rather than counted as a
+     * failure — that alone turned "works 3-4 times then stops" into steady
+     * running.
+     */
+    private fun attempt(url: String, lat: String, lon: String, profile: Int): Response {
+        var last: Exception? = null
+        for (i in 0 until 3) {
+            try {
+                return once(url, lat, lon, profile)
+            } catch (e: java.net.SocketTimeoutException) {
+                last = e
+            } catch (e: java.io.IOException) {
+                last = e
+            }
+            Thread.sleep(2_500L * (i + 1))
+        }
+        throw BlinkitError(
+            "no reply after 3 tries (${last?.javaClass?.simpleName ?: "timeout"}) — " +
+                "network asleep or unreachable"
+        )
     }
 
     private fun post(path: String, lat: String, lon: String): JSONObject {
@@ -144,6 +172,18 @@ object Blinkit {
                 inStock = inStock,
             )
         }
+    }
+
+    /**
+     * Search several comma-separated terms and merge the results.
+     * "hot wheels, matchbox" is two searches, not one product name.
+     */
+    fun searchAll(lat: String, lon: String, terms: List<String>, maxPages: Int = 4): List<Product> {
+        val merged = LinkedHashMap<String, Product>()
+        for (term in terms.ifEmpty { listOf("hot wheels") }) {
+            for (p in search(lat, lon, term, maxPages)) merged.putIfAbsent(p.id, p)
+        }
+        return merged.values.toList()
     }
 
     /** Walk every page of results for one query. */

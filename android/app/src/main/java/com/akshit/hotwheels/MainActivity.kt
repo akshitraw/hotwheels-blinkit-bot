@@ -150,7 +150,7 @@ class MainActivity : Activity() {
         toast("Checking Blinkit at this location…")
         Thread {
             val result = runCatching {
-                Blinkit.search(store.lat, store.lon, store.query, maxPages = 1)
+                Blinkit.searchAll(store.lat, store.lon, store.queryList(), maxPages = 1)
             }
             ui.post {
                 result.onSuccess { products ->
@@ -321,8 +321,8 @@ class MainActivity : Activity() {
      */
     private fun probeOtherStores() {
         val progress = AlertDialog.Builder(this)
-            .setTitle("Testing Zepto & Swiggy")
-            .setMessage("Loading each site in a hidden browser. This takes about a minute…")
+            .setTitle("Inspecting Zepto & Swiggy")
+            .setMessage("Reading how each site stores your location and lays out products…")
             .setCancelable(false)
             .show()
         WebProbe.run(this) { report ->
@@ -335,7 +335,7 @@ class MainActivity : Activity() {
                 typeface = android.graphics.Typeface.MONOSPACE
             }
             AlertDialog.Builder(this)
-                .setTitle("Zepto / Swiggy report")
+                .setTitle("Zepto / Swiggy inspection")
                 .setView(ScrollView(this).apply { addView(view) })
                 .setPositiveButton("Copy") { _, _ ->
                     getSystemService(ClipboardManager::class.java)
@@ -352,7 +352,7 @@ class MainActivity : Activity() {
         toast("Checking Blinkit…")
         Thread {
             val result = runCatching {
-                Blinkit.search(store.lat, store.lon, store.query, maxPages = 1)
+                Blinkit.searchAll(store.lat, store.lon, store.queryList(), maxPages = 1)
                     .filter { it.inStock }.take(2)
             }
             ui.post {
