@@ -269,6 +269,42 @@ def parse_products(payload: dict[str, Any]) -> list[dict[str, Any]]:
     return out
 
 
+def probe_empty(cfg: Config, query: str) -> None:
+    """Explain why a search came back with nothing.
+
+    A 200 response carrying no product cards is the dangerous case: the run
+    looks healthy but can never alert. Usually it means Blinkit served this
+    network a serviceability page instead of results — which is what happens
+    from outside India, GitHub's runners included.
+    """
+    qs = SEARCH_PATH + "?" + urllib.parse.urlencode(
+        {"q": query, "search_type": "type_to_search"})
+    try:
+        payload = post_json(BASE + qs, BODY, cfg.headers())
+    except HttpError as e:
+        print(f"  probe: HTTP {e.status} — {e.body[:300]}", file=sys.stderr)
+        return
+    except (urllib.error.URLError, OSError) as e:
+        print(f"  probe: network error — {e}", file=sys.stderr)
+        return
+    resp = payload.get("response") or {}
+    snippets = resp.get("snippets") or []
+    kinds: dict[str, int] = {}
+    for s in snippets:
+        if isinstance(s, dict):
+            k = str(s.get("widget_type", "?"))
+            kinds[k] = kinds.get(k, 0) + 1
+    print(f"  probe: HTTP 200, top-level keys={list(payload)}, "
+          f"{len(snippets)} snippets {kinds or '(none)'}", file=sys.stderr)
+    blob = json.dumps(payload)[:200000].lower()
+    for hint in ("not serviceable", "serviceab", "unavailable", "coming soon",
+                 "not delivering", "no store", "out of service"):
+        if hint in blob:
+            i = blob.find(hint)
+            print(f"  probe: response mentions …{blob[max(0, i-70):i+70]}…", file=sys.stderr)
+            break
+
+
 def search_all(cfg: Config, query: str, max_pages: int) -> list[dict[str, Any]]:
     qs = SEARCH_PATH + "?" + urllib.parse.urlencode(
         {"q": query, "search_type": "type_to_search"})
@@ -525,6 +561,17 @@ def check(cfg: Config, *, dry_run: bool = False) -> list[dict[str, Any]]:
         for p in search_all(cfg, q, cfg.max_pages):
             found.setdefault(p["id"], p)
 
+    # Zero products is never a legitimate result for "hot wheels" at a
+    # serviceable location. Treat it as a failure rather than quietly
+    # reporting "no change" forever.
+    if not found:
+        print("FAILED: search returned 0 products.", file=sys.stderr)
+        probe_empty(cfg, cfg.queries[0])
+        raise RuntimeError(
+            "Blinkit returned no products. This network is most likely being "
+            "served a non-India / non-serviceable response."
+        )
+
     state = load_state(cfg.state_file)
     known: dict[str, Any] = state["products"]
     first_run = not known
@@ -680,7 +727,11 @@ def main() -> int:
                 print(f"Backing off {int(delay)}s before retrying.", file=sys.stderr)
             time.sleep(delay)
 
-    check(cfg, dry_run=args.dry_run)
+    try:
+        check(cfg, dry_run=args.dry_run)
+    except RuntimeError as e:
+        print(f"Check failed: {e}", file=sys.stderr)
+        return 1
     return 0
 
 
