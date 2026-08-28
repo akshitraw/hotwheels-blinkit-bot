@@ -95,6 +95,8 @@ class MainActivity : Activity() {
         findViewById<Button>(R.id.test).setOnClickListener { save(); testAlert() }
         findViewById<Button>(R.id.diagnose).setOnClickListener { save(); runDiagnostics() }
 
+        findViewById<Button>(R.id.probeStores).setOnClickListener { probeOtherStores() }
+
         findViewById<Button>(R.id.reset).setOnClickListener {
             store.forgetAll()
             toast("Baseline cleared — next check re-learns what's in stock")
@@ -309,6 +311,40 @@ class MainActivity : Activity() {
                     .show()
             }
         }.start()
+    }
+
+    /**
+     * Zepto and Swiggy are behind AWS WAF challenges that a plain HTTP client
+     * can't pass. This loads each in a hidden WebView — a real browser engine —
+     * and reports whether products actually render. It's the only way to know
+     * whether supporting them is possible from this device.
+     */
+    private fun probeOtherStores() {
+        val progress = AlertDialog.Builder(this)
+            .setTitle("Testing Zepto & Swiggy")
+            .setMessage("Loading each site in a hidden browser. This takes about a minute…")
+            .setCancelable(false)
+            .show()
+        WebProbe.run(this) { report ->
+            progress.dismiss()
+            val view = TextView(this).apply {
+                text = report
+                setTextIsSelectable(true)
+                setPadding(48, 32, 48, 32)
+                textSize = 12f
+                typeface = android.graphics.Typeface.MONOSPACE
+            }
+            AlertDialog.Builder(this)
+                .setTitle("Zepto / Swiggy report")
+                .setView(ScrollView(this).apply { addView(view) })
+                .setPositiveButton("Copy") { _, _ ->
+                    getSystemService(ClipboardManager::class.java)
+                        .setPrimaryClip(ClipData.newPlainText("store probe", report))
+                    toast("Copied — paste it to Claude")
+                }
+                .setNegativeButton("Close", null)
+                .show()
+        }
     }
 
     /** Fetch live results and notify on the first couple, so you can see it work. */

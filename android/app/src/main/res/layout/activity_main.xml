@@ -139,6 +139,10 @@
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:text="Diagnose connection" android:layout_marginTop="8dp" />
 
+        <Button android:id="@+id/probeStores"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="Test Zepto &amp; Swiggy" android:layout_marginTop="8dp" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
