@@ -353,7 +353,7 @@
     "625336": {
       "name": "Lego F1 Ferrari SF-24 Racing Car Building Set (77242)",
       "in_stock": true,
-      "price": "₹2,337"
+      "price": "₹2,474"
     },
     "526566": {
       "name": "Toyshine Friction Powered Automobile Car Transportation Toy Vehicle",
@@ -368,7 +368,7 @@
     "625307": {
       "name": "Lego Speed Champions Oracle F1 Red Bull RB20 Racing Car Building Set (77243)",
       "in_stock": true,
-      "price": "₹2,337"
+      "price": "₹2,474"
     },
     "586507": {
       "name": "Kidology Adventure Car Race Track Toy Set",
@@ -429,8 +429,398 @@
       "name": "Matchbox 2023 Subaru Outback Wilderness Die Cast Car",
       "in_stock": true,
       "price": "₹179"
+    },
+    "785010": {
+      "name": "Smartivity Hi-Speed Car Race Turbo Loop Track Set",
+      "in_stock": true,
+      "price": "₹999"
+    },
+    "804943": {
+      "name": "Hot Wheels El Segundo Coupe Clip Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "787569": {
+      "name": "Hot Wheels '63 Chevy II Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "804916": {
+      "name": "Hot Wheels '94 Toyota Supra Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "804907": {
+      "name": "Hot Wheels Lil' Roar Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "444563": {
+      "name": "Hot Wheels 1:64 Scale Toy Car (Colour & Designs may vary, Multicolour)",
+      "in_stock": true,
+      "price": "₹720"
+    },
+    "787548": {
+      "name": "Hot Wheels '55 Chevy Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "804898": {
+      "name": "Hot Wheels Fiat 500C Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "804923": {
+      "name": "Hot Wheels Supercharged Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "1380593": {
+      "name": "Hot Wheels 1972 Datsun Sunny Coupe Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "1373855": {
+      "name": "Hot Wheels 20 Toyota Tacoma Die Cast Car",
+      "in_stock": true,
+      "price": "₹299"
+    },
+    "1383801": {
+      "name": "Hot Wheels Alfa Romeo Giulia Ti Super Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "1381990": {
+      "name": "Hot Wheels Custom '62 Chevy Pickup Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "1373867": {
+      "name": "Hot Wheels Custom 69 Volkswagen Squareback Die Cast Car",
+      "in_stock": true,
+      "price": "₹299"
+    },
+    "1383415": {
+      "name": "Hot Wheels El Segundo Coupe Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "1373515": {
+      "name": "Hot Wheels Honda Civic EG Die Cast Car",
+      "in_stock": true,
+      "price": "₹299"
+    },
+    "1373869": {
+      "name": "Hot Wheels Land Rover Defender 90 Die Cast Car",
+      "in_stock": true,
+      "price": "₹299"
+    },
+    "1381999": {
+      "name": "Hot Wheels Lucid Air Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "1381994": {
+      "name": "Hot Wheels Nissan Maxima Drift Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "1382015": {
+      "name": "Hot Wheels Screamliner Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "798867": {
+      "name": "Hot Wheels Volkswagen Kool Kombi Die Cast Car",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "804832": {
+      "name": "Hot Wheels Lil' Mad Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "804834": {
+      "name": "Hot Wheels Street Shrieker Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "804927": {
+      "name": "Hot Wheels Decidedly Go Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "804909": {
+      "name": "Hot Wheels HW Euro Drift Box Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "774464": {
+      "name": "Hot Wheels Buzz Bomb Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "804932": {
+      "name": "Hot Wheels Renault Espace F1 Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "804914": {
+      "name": "Hot Wheels Erikenstein Rod Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "787544": {
+      "name": "Hot Wheels Duck N Roll Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "773353": {
+      "name": "Hot Wheels Spider-Mobile Dead-Buggy Die Cast Car",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "804934": {
+      "name": "Hot Wheels Rapid Pulse Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "787541": {
+      "name": "Hot Wheels Chop N Bloc Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "804920": {
+      "name": "Hot Wheels Pedal Driver Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "796421": {
+      "name": "Hot Wheels Mario Kart Bowser Die Cast Car",
+      "in_stock": true,
+      "price": "₹799"
+    },
+    "773012": {
+      "name": "Hot Wheels Custom GMC Panel Van Die Cast Car",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "1383807": {
+      "name": "Hot Wheels Deora Too Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "774084": {
+      "name": "Hot Wheels Duck 'N' Roll Color Shifter Monster Truck",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "1383344": {
+      "name": "Hot Wheels HW Test Ride Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "1383378": {
+      "name": "Hot Wheels Hyper Rocker Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "1377640": {
+      "name": "Hot Wheels Masters Of The Universeth Wind Raiderth Die Cast Car",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "797379": {
+      "name": "Hot Wheels Monster Truck",
+      "in_stock": true,
+      "price": "₹649"
+    },
+    "1379196": {
+      "name": "Hot Wheels Neon Bone Shaker Monster Truck",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "1379201": {
+      "name": "Hot Wheels Neon Hotweiler Monster Truck",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "1379204": {
+      "name": "Hot Wheels Neon Skelesaurs Monster Truck",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "1380568": {
+      "name": "Hot Wheels Neon Smashers Bigfoot Monster Truck",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "1376112": {
+      "name": "Hot Wheels Neon Smashers Monster Truck",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "1381896": {
+      "name": "Hot Wheels Project Twin Mill Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "1373520": {
+      "name": "Hot Wheels Smashers Podium Crasher Die Cast Car",
+      "in_stock": true,
+      "price": "₹549"
+    },
+    "804913": {
+      "name": "Hot Wheels Spider Mobile Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "804825": {
+      "name": "Hot Wheels Street Shaker Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "1380477": {
+      "name": "Hot Wheels Team Transport 07 Honda Civic Type R Die Cast Car",
+      "in_stock": true,
+      "price": "₹1,399"
+    },
+    "1383362": {
+      "name": "Hot Wheels Uncertain-T Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "1383809": {
+      "name": "Hot Wheels Volvo 240 Drift Wagon Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "771907": {
+      "name": "Hot Wheels Quick Chat Die Cast Car",
+      "in_stock": true,
+      "price": "₹167"
+    },
+    "796560": {
+      "name": "Hot Wheels Mario Kart Lakitu Standard Kart Die Cast Car with Parafoil Glider",
+      "in_stock": true,
+      "price": "₹799"
+    },
+    "1383366": {
+      "name": "Matchbox 1969 Chevrolet Camaro Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "1383384": {
+      "name": "Matchbox 1973 Volkswagen T2B Bus Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "1383833": {
+      "name": "Matchbox Holden VF Commodore SSV Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "712396": {
+      "name": "Frendo Premium Metal Die Cast Car",
+      "in_stock": true,
+      "price": "₹299"
+    },
+    "542484": {
+      "name": "Toyshine Friction Powered Rock Crawler Mini Toy Vehicle",
+      "in_stock": true,
+      "price": "₹69"
+    },
+    "690159": {
+      "name": "Frendo Deforming Crash And Dash Toy Car",
+      "in_stock": true,
+      "price": "₹189"
+    },
+    "580390": {
+      "name": "King Krab Press & Go Doraemon Toy Vehicle",
+      "in_stock": true,
+      "price": "₹149"
+    },
+    "540311": {
+      "name": "Toyshine Transform Robot Racing Toy Car",
+      "in_stock": true,
+      "price": "₹499"
+    },
+    "690208": {
+      "name": "Frendo Deforming Crash And Dash Toy Car (Yellow)",
+      "in_stock": true,
+      "price": "₹189"
+    },
+    "784012": {
+      "name": "VniQ Toy Car Set With Storage Box",
+      "in_stock": true,
+      "price": "₹1,099"
+    },
+    "804922": {
+      "name": "Caddle & Toes Chargeable Race Car RC Toy",
+      "in_stock": true,
+      "price": "₹499"
+    },
+    "707135": {
+      "name": "Toyshine Thaar Pullback Die Cast Car (Black)",
+      "in_stock": true,
+      "price": "₹299"
+    },
+    "751289": {
+      "name": "Toyshine 1:32 Scale SUV Racing Model Die Cast Car",
+      "in_stock": true,
+      "price": "₹399"
+    },
+    "787961": {
+      "name": "Hot Wheels '70 Dodge Charger Die Cast Car",
+      "in_stock": true,
+      "price": "₹179"
+    },
+    "797378": {
+      "name": "Hot Wheels Race Ace 1:64 Monster Truck",
+      "in_stock": true,
+      "price": "₹649"
+    },
+    "654883": {
+      "name": "Marvel Go: Captain America Die Cast Car",
+      "in_stock": true,
+      "price": "₹148"
+    },
+    "655516": {
+      "name": "Marvel Go: Venom Die Cast Car",
+      "in_stock": true,
+      "price": "₹148"
+    },
+    "754079": {
+      "name": "Toyshine 1:35 Scale Rolls Royce Die Cast Car",
+      "in_stock": true,
+      "price": "₹999"
+    },
+    "754080": {
+      "name": "Toyshine 1:35 Scale Rolls Royce Die Cast Car",
+      "in_stock": true,
+      "price": "₹999"
+    },
+    "784643": {
+      "name": "Chigy Wooh Lamborghini Yellow 1:36 Die Cast Car",
+      "in_stock": true,
+      "price": "₹499"
+    },
+    "711613": {
+      "name": "Chigy Wooh Defender Pullback Die Cast Car With Sound & Light",
+      "in_stock": true,
+      "price": "₹899"
+    },
+    "749055": {
+      "name": "Frendo Premium Metal 1:37 Vintage Die Cast Car",
+      "in_stock": true,
+      "price": "₹299"
+    },
+    "797717": {
+      "name": "Chigy Wooh BMW 1:36 Pull-Back Die Cast Car",
+      "in_stock": true,
+      "price": "₹499"
     }
   },
-  "last_check": "2026-08-28 23:21:57",
-  "last_count": 79
+  "last_check": "2026-08-30 18:15:40",
+  "last_count": 77
 }
