@@ -117,27 +117,65 @@ class WatcherService : Service() {
         while (running) {
             val started = System.currentTimeMillis()
             try {
-                val products = Blinkit.searchAll(store.lat, store.lon, store.queryList())
-                if (products.isEmpty()) throw BlinkitError("Search returned nothing at all")
+                val found = Blinkit.searchAll(store.lat, store.lon, store.queryList())
+                if (found.isEmpty()) throw BlinkitError("Search returned nothing at all")
+
+                // Blinkit's search is fuzzy — "hot wheels" also returns other
+                // toy cars. Keep only products whose own brand field (or, if
+                // that's blank, their name) matches an allowed brand.
+                val brands = store.brandList()
+                val products = if (brands.isEmpty()) found else found.filter { p ->
+                    val hay = (p.brand.ifBlank { p.name }).lowercase()
+                    val name = p.name.lowercase()
+                    brands.any { hay.contains(it) || name.contains(it) }
+                }
+                if (products.isEmpty()) {
+                    store.log("${found.size} results, none matched brand filter (${store.brands})")
+                    throw BlinkitError("nothing matched the brand filter")
+                }
 
                 val keywords = store.keywordList()
                 val firstRun = store.isFirstRun()
-                val restocked = products.filter { p ->
+
+                // Split the two things worth knowing about: a car that has
+                // never appeared before, and one that was sold out and is back.
+                val fresh = products.filter { p ->
                     p.inStock && !store.wasInStock(p.id) &&
                         (keywords.isEmpty() || keywords.any { p.name.lowercase().contains(it) })
                 }
+                val newCars = fresh.filter { !store.everSeen(it.id) }
+                val restocked = fresh.filter { store.everSeen(it.id) }
+                val suppressed = if (keywords.isEmpty()) 0 else
+                    products.count { p -> p.inStock && !store.wasInStock(p.id) } - fresh.size
+
                 store.remember(products)
 
                 val inStock = products.count { it.inStock }
                 if (firstRun) {
+                    store.log("Baseline: ${products.size} cars (${found.size} results), $inStock in stock")
                     updateNotice("Baseline set: ${products.size} cars, $inStock in stock. Watching from now.")
                 } else {
-                    for (p in restocked) Notifier.alert(this, p)
+                    for (p in newCars) Notifier.alert(this, p, isNew = true)
+                    for (p in restocked) Notifier.alert(this, p, isNew = false)
+
+                    if (fresh.isEmpty()) {
+                        store.log("no change · $inStock/${products.size} in stock" +
+                            if (suppressed > 0) " · $suppressed hidden by word filter" else "")
+                    } else {
+                        store.log(
+                            "ALERTED " + (newCars.map { "NEW ${it.name}" } +
+                                restocked.map { "BACK ${it.name}" }).joinToString("; ").take(300)
+                        )
+                    }
                     updateNotice(
-                        if (restocked.isEmpty())
-                            "$inStock of ${products.size} in stock · checked ${clock.format(Date())}"
-                        else
-                            "${restocked.size} restocked! · ${clock.format(Date())}"
+                        when {
+                            fresh.isNotEmpty() ->
+                                "${newCars.size} new, ${restocked.size} restocked · ${clock.format(Date())}"
+                            suppressed > 0 ->
+                                "$inStock of ${products.size} in stock · $suppressed hidden by word filter"
+                            else ->
+                                "$inStock of ${products.size} in stock · checked ${clock.format(Date())}"
+                        }
                     )
                 }
                 failures = 0
@@ -145,6 +183,7 @@ class WatcherService : Service() {
                 return
             } catch (e: Exception) {
                 failures++
+                store.log("FAILED: ${e.message?.take(90)}")
                 updateNotice("Check failed (${e.message}) · retry ${failures}")
             }
 

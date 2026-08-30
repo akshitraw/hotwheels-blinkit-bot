@@ -98,6 +98,13 @@
         </LinearLayout>
 
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="Brands to accept (results not matching are ignored)"
+            android:textSize="12sp" android:alpha="0.7" android:paddingTop="12dp" />
+        <EditText android:id="@+id/brands"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:inputType="text" android:hint="hot wheels" android:autofillHints="" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
             android:text="Search terms (comma separated)" android:textSize="12sp" android:alpha="0.7"
             android:paddingTop="12dp" />
         <EditText android:id="@+id/query"
@@ -106,12 +113,22 @@
             android:autofillHints="" />
 
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:text="Only alert for these words (comma separated, blank = everything)"
+            android:text="Narrow to specific models — LEAVE BLANK to hear about every Hot Wheels"
             android:textSize="12sp" android:alpha="0.7" android:paddingTop="12dp" />
         <EditText android:id="@+id/keywords"
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:inputType="text" android:hint="bugatti, skyline, supra"
             android:autofillHints="" />
+
+        <TextView
+            android:id="@+id/filterWarning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:paddingTop="6dp"
+            android:visibility="gone" />
 
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
             android:text="Check every (minutes)" android:textSize="12sp" android:alpha="0.7"
@@ -135,6 +152,10 @@
         <Button android:id="@+id/reset"
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:text="Reset baseline" android:layout_marginTop="8dp" />
+
+        <Button android:id="@+id/activity"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="Activity log" android:layout_marginTop="8dp" />
 
         <Button android:id="@+id/diagnose"
             android:layout_width="match_parent" android:layout_height="wrap_content"

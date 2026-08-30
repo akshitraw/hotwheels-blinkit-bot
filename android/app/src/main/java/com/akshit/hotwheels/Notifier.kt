@@ -52,8 +52,8 @@ object Notifier {
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-    /** One rich notification per restocked car. Tapping opens Blinkit. */
-    fun alert(context: Context, product: Product) {
+    /** One rich notification per car. Tapping opens Blinkit. */
+    fun alert(context: Context, product: Product, isNew: Boolean = false) {
         val nm = context.getSystemService(NotificationManager::class.java)
 
         val detail = buildString {
@@ -66,7 +66,7 @@ object Notifier {
 
         val builder = Notification.Builder(context, CHANNEL_ALERTS)
             .setSmallIcon(R.drawable.ic_car)
-            .setContentTitle(product.name)
+            .setContentTitle((if (isNew) "NEW · " else "Back in stock · ") + product.name)
             .setContentText(detail)
             .setStyle(Notification.BigTextStyle().bigText(detail))
             .setContentIntent(openProduct(context, product.url, product.id.hashCode()))

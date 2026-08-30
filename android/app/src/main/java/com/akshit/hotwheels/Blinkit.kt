@@ -10,6 +10,8 @@ import java.net.URL
 data class Product(
     val id: String,
     val name: String,
+    /** Blinkit's own brand field — the reliable way to tell a real Hot Wheels. */
+    val brand: String,
     val price: String,
     val mrp: String,
     val unit: String,
@@ -164,6 +166,7 @@ object Blinkit {
             Product(
                 id = id,
                 name = text(c.opt("display_name")).ifEmpty { text(c.opt("name")) },
+                brand = text(c.opt("brand_name")),
                 price = text(c.opt("normal_price")),
                 mrp = text(c.opt("mrp_price")),
                 unit = text(c.opt("variant")),

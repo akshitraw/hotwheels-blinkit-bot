@@ -57,9 +57,17 @@ unaffected.
 | Field | What it does |
 |---|---|
 | Delivery location | Set by GPS or address search. Blinkit stock is per dark store, so use your actual delivery address rather than a city centre — a few kilometres can mean a different warehouse with different stock. Changing it clears the baseline, since the old one described a different store. |
+| Brands to accept | Default `hot wheels`. Blinkit's search is fuzzy: a search for "hot wheels" returns 48 results at a typical store, of which only 34 are Hot Wheels — the rest are Toyshine, Marvel Go, Wembley and similar. Anything whose brand doesn't match is ignored entirely. |
 | Search terms | Comma separated — `hot wheels, matchbox` runs two searches and merges the results. |
-| Only alert for these words | Blank means alert on everything. Set `bugatti, skyline, supra` to narrow it. |
+| Narrow to specific models | **Leave blank** to be told about every Hot Wheels. Filling it in (e.g. `bugatti, skyline`) means *only* cars with those words alert — everything else is silently dropped, which is the most common reason the app goes quiet. The app shows a warning while this field is set. |
 | Check every (minutes) | Default 2. Below 2 is pointless — dark-store inventory doesn't update that fast — and burns battery. |
+
+**Activity log** shows one line per check — how many cars were in stock, what it
+alerted on, and anything it hid. If you think alerts are missing, look here
+first: it distinguishes "nothing changed" from "the watcher stopped running".
+
+Notifications are labelled **NEW ·** for a car never seen before and
+**Back in stock ·** for one that sold out and returned.
 
 **Reset baseline** makes it forget what it has seen, so the next check re-learns
 from scratch. Useful if you change location or search term.

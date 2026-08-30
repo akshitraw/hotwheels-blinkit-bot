@@ -20,6 +20,15 @@ class Store(context: Context) {
         get() = prefs.getString("query", "hot wheels")!!
         set(v) = prefs.edit().putString("query", v.trim().ifEmpty { "hot wheels" }).apply()
 
+    /**
+     * Brands that count. A Blinkit search for "hot wheels" also returns
+     * unrelated toy cars, so results are filtered against the product's own
+     * brand field (falling back to its name) before anything is alerted.
+     */
+    var brands: String
+        get() = prefs.getString("brands", "hot wheels")!!
+        set(v) = prefs.edit().putString("brands", v.trim()).apply()
+
     /** Comma-separated; empty means alert on everything. */
     var keywords: String
         get() = prefs.getString("keywords", "")!!
@@ -51,6 +60,9 @@ class Store(context: Context) {
     fun queryList(): List<String> =
         query.split(",").map { it.trim() }.filter { it.isNotEmpty() }.ifEmpty { listOf("hot wheels") }
 
+    fun brandList(): List<String> =
+        brands.split(",").map { it.trim().lowercase() }.filter { it.isNotEmpty() }
+
     fun keywordList(): List<String> =
         keywords.split(",").map { it.trim().lowercase() }.filter { it.isNotEmpty() }
 
@@ -69,5 +81,29 @@ class Store(context: Context) {
         prefs.edit().putString("seen", s.toString()).apply()
     }
 
+    /** Has this product ever been recorded? Distinguishes new from restocked. */
+    fun everSeen(id: String): Boolean = seen().has(id)
+
     fun forgetAll() = prefs.edit().remove("seen").apply()
+
+    // ---- activity log ---------------------------------------------------
+    // A visible record of what each check did. Without it, "no notifications"
+    // is indistinguishable from "the watcher is dead", which is the single
+    // most confusing failure this app can have.
+
+    fun log(line: String) {
+        val stamp = java.text.SimpleDateFormat("dd MMM HH:mm", java.util.Locale.getDefault())
+            .format(java.util.Date())
+        val entries = logLines().toMutableList()
+        entries.add(0, "$stamp  $line")
+        while (entries.size > 60) entries.removeAt(entries.size - 1)
+        prefs.edit().putString("log", org.json.JSONArray(entries).toString()).apply()
+    }
+
+    fun logLines(): List<String> = runCatching {
+        val arr = org.json.JSONArray(prefs.getString("log", "[]")!!)
+        (0 until arr.length()).map { arr.getString(it) }
+    }.getOrDefault(emptyList())
+
+    fun clearLog() = prefs.edit().remove("log").apply()
 }

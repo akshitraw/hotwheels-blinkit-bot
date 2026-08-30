@@ -36,6 +36,8 @@ class MainActivity : Activity() {
     private lateinit var lon: EditText
     private lateinit var query: EditText
     private lateinit var keywords: EditText
+    private lateinit var brands: EditText
+    private lateinit var filterWarning: TextView
     private lateinit var interval: EditText
     private val ui = Handler(Looper.getMainLooper())
 
@@ -53,6 +55,8 @@ class MainActivity : Activity() {
         lon = findViewById(R.id.lon)
         query = findViewById(R.id.query)
         keywords = findViewById(R.id.keywords)
+        brands = findViewById(R.id.brands)
+        filterWarning = findViewById(R.id.filterWarning)
         interval = findViewById(R.id.interval)
         status = findViewById(R.id.status)
         locationLabel = findViewById(R.id.locationLabel)
@@ -61,6 +65,7 @@ class MainActivity : Activity() {
         lon.setText(store.lon)
         query.setText(store.query)
         keywords.setText(store.keywords)
+        brands.setText(store.brands)
         interval.setText(store.intervalMinutes.toString())
 
         val manualBox = findViewById<LinearLayout>(R.id.manualBox)
@@ -97,6 +102,8 @@ class MainActivity : Activity() {
 
         findViewById<Button>(R.id.probeStores).setOnClickListener { probeOtherStores() }
 
+        findViewById<Button>(R.id.activity).setOnClickListener { showActivity() }
+
         findViewById<Button>(R.id.reset).setOnClickListener {
             store.forgetAll()
             toast("Baseline cleared — next check re-learns what's in stock")
@@ -115,11 +122,23 @@ class MainActivity : Activity() {
         store.lon = lon.text.toString()
         store.query = query.text.toString()
         store.keywords = keywords.text.toString()
+        store.brands = brands.text.toString()
         store.intervalMinutes = interval.text.toString().toIntOrNull() ?: 2
     }
 
     private fun refresh() {
         locationLabel.text = store.locationLabel.ifBlank { "${store.lat}, ${store.lon}" }
+        // The word filter is the easiest way to accidentally silence the app,
+        // so say so plainly rather than leaving it to be discovered.
+        val words = store.keywordList()
+        if (words.isEmpty()) {
+            filterWarning.visibility = View.GONE
+        } else {
+            filterWarning.visibility = View.VISIBLE
+            filterWarning.text =
+                "⚠ Only cars whose name contains ${words.joinToString(" / ")} will notify you. " +
+                    "Clear this field to hear about every Hot Wheels."
+        }
         status.text = buildString {
             append(if (store.enabled) "● Watching every ${store.intervalMinutes} min\n\n" else "○ Not watching\n\n")
             append(store.lastStatus)
@@ -311,6 +330,34 @@ class MainActivity : Activity() {
                     .show()
             }
         }.start()
+    }
+
+    /** What the watcher has actually been doing, so "no alerts" is explainable. */
+    private fun showActivity() {
+        val lines = store.logLines()
+        val text = if (lines.isEmpty())
+            "Nothing recorded yet.\n\nThe log fills in as checks run — one line per check, " +
+                "showing how many cars were in stock and anything it alerted on."
+        else lines.joinToString("\n")
+
+        val view = TextView(this).apply {
+            this.text = text
+            setTextIsSelectable(true)
+            setPadding(48, 32, 48, 32)
+            textSize = 12f
+            typeface = android.graphics.Typeface.MONOSPACE
+        }
+        AlertDialog.Builder(this)
+            .setTitle("Activity log")
+            .setView(ScrollView(this).apply { addView(view) })
+            .setPositiveButton("Copy") { _, _ ->
+                getSystemService(ClipboardManager::class.java)
+                    .setPrimaryClip(ClipData.newPlainText("activity", text))
+                toast("Copied")
+            }
+            .setNeutralButton("Clear") { _, _ -> store.clearLog(); toast("Log cleared") }
+            .setNegativeButton("Close", null)
+            .show()
     }
 
     /**
